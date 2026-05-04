@@ -23,7 +23,8 @@ module "network" {
   for_each = var.network
   source   = "./modules/network"
 
-  env = var.env
+  env            = var.env
+  default_vpc_id = var.default_vpc_id
 
   vpc_cidr = each.value["vpc_cidr"]
   subnets  = each.value["subnets"]
