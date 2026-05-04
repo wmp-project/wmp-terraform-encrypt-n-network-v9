@@ -21,12 +21,12 @@
 
 module "network" {
   for_each = var.network
-  source = "./modules/network"
+  source   = "./modules/network"
 
   env = var.env
 
   vpc_cidr = each.value["vpc_cidr"]
-
+  subnets  = each.value["subnets"]
 
 }
 
