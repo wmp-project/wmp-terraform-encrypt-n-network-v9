@@ -7,5 +7,5 @@ variable "network" {}
 variable "default_vpc_id" {}
 variable "default_vpc_rt_id" {}
 variable "default_vpc_cidr" {}
-
+variable "cluster_sg_ingress_cidr" {}
 

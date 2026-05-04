@@ -1,3 +1,28 @@
+resource "aws_security_group" "cluster-sg" {
+
+  name   = "${var.env}-eks-cluster-sg"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = var.cluster_sg_ingress_cidr
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "wmp-rds-${var.env}"
+  }
+
+}
+
 resource "aws_eks_cluster" "main" {
   name = var.env
 
@@ -5,10 +30,10 @@ resource "aws_eks_cluster" "main" {
   version  = "1.35"
 
   vpc_config {
-    subnet_ids              = var.subnets
-    endpoint_private_access = true
-    endpoint_public_access  = false
-
+    subnet_ids                = var.subnets
+    endpoint_private_access   = true
+    endpoint_public_access    = false
+    cluster_security_group_id = aws_security_group.cluster-sg.id
   }
 
   depends_on = [
