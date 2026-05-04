@@ -73,3 +73,20 @@ apps = {
   }
 
 }
+
+network = {
+  dev = {
+    vpc_cidr = "10.1.0.0/24"
+    subnets = {
+      s1 = {
+        cidr = "10.1.0.0/25"
+        az = "us-east-1a"
+      }
+      s2 = {
+        cidr = "10.1.128.0/25"
+        az = "us-east-1b"
+      }
+    }
+  }
+}
+
