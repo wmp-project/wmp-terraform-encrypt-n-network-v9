@@ -3,6 +3,6 @@ output "vpc_id" {
 }
 
 output "subnet_ids" {
-  value = aws_subnet.main
+  value = { for i,j in local.subnets_merged: j.group => [for k,v in j: v.id] }
 }
 
