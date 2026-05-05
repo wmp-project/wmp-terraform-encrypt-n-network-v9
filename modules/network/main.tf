@@ -18,8 +18,8 @@ resource "aws_subnet" "main" {
 }
 
 resource "aws_route_table" "main" {
-  for_each          = var.subnets
-  vpc_id = aws_vpc.main.id
+  for_each = var.subnets
+  vpc_id   = aws_vpc.main.id
 
   tags = {
     Name = each.key
