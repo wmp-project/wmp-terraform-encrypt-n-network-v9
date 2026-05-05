@@ -47,6 +47,17 @@ resource "aws_route" "igw-route" {
   gateway_id             = aws_internet_gateway.igw.id
 }
 
+resource "aws_eip" "ngw" {
+  for_each = local.subnets_with_igw
+  domain   = "vpc"
+}
+
+resource "aws_nat_gateway" "ngw" {
+  for_each      = local.subnets_with_igw
+  allocation_id = aws_eip.ngw[each.key].id
+  subnet_id     = each.key
+}
+
 #
 # resource "aws_vpc_peering_connection" "main" {
 #   peer_vpc_id = var.default_vpc_id
