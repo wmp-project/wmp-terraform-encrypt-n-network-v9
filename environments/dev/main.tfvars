@@ -79,40 +79,46 @@ network = {
     vpc_cidr = "10.1.0.0/24"
     subnets = {
       public-subnet1 = {
-        cidr = "10.1.0.0/27"
-        az   = "us-east-1a"
-        igw  = true
-        ngw  = false
+        cidr  = "10.1.0.0/27"
+        az    = "us-east-1a"
+        igw   = true
+        ngw   = false
+        group = "public"
       }
       public-subnet2 = {
-        cidr = "10.1.0.32/27"
-        az   = "us-east-1b"
-        igw  = true
-        ngw  = false
+        cidr  = "10.1.0.32/27"
+        az    = "us-east-1b"
+        igw   = true
+        ngw   = false
+        group = "public"
       }
       db-subnet1 = {
-        cidr = "10.1.0.64/27"
-        az   = "us-east-1a"
-        igw  = false
-        ngw  = false
+        cidr  = "10.1.0.64/27"
+        az    = "us-east-1a"
+        igw   = false
+        ngw   = false
+        group = "db"
       }
       db-subnet2 = {
-        cidr = "10.1.0.96/27"
-        az   = "us-east-1b"
-        igw  = false
-        ngw  = false
+        cidr  = "10.1.0.96/27"
+        az    = "us-east-1b"
+        igw   = false
+        ngw   = false
+        group = "db"
       }
       app-subnet1 = {
-        cidr = "10.1.0.128/26"
-        az   = "us-east-1a"
-        igw  = false
-        ngw  = true
+        cidr  = "10.1.0.128/26"
+        az    = "us-east-1a"
+        igw   = false
+        ngw   = true
+        group = "app"
       }
       app-subnet2 = {
-        cidr = "10.1.0.192/26"
-        az   = "us-east-1b"
-        igw  = false
-        ngw  = true
+        cidr  = "10.1.0.192/26"
+        az    = "us-east-1b"
+        igw   = false
+        ngw   = true
+        group = "app"
       }
     }
   }
