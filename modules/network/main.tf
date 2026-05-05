@@ -58,6 +58,13 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = each.key
 }
 
+resource "aws_route" "ngw-route" {
+  for_each               = local.subnets_with_ngw
+  route_table_id         = each.value
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.ngw[each.key].id
+}
+
 #
 # resource "aws_vpc_peering_connection" "main" {
 #   peer_vpc_id = var.default_vpc_id
