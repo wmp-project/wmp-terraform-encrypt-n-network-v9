@@ -78,13 +78,41 @@ network = {
   dev = {
     vpc_cidr = "10.1.0.0/24"
     subnets = {
-      s1 = {
-        cidr = "10.1.0.0/25"
+      public-subnet1 = {
+        cidr = "10.1.0.0/27"
         az   = "us-east-1a"
+        igw  = true
+        ngw  = false
       }
-      s2 = {
-        cidr = "10.1.0.128/25"
+      public-subnet2 = {
+        cidr = "10.1.0.32/27"
         az   = "us-east-1b"
+        igw  = true
+        ngw  = false
+      }
+      db-subnet1 = {
+        cidr = "10.1.0.64/27"
+        az   = "us-east-1a"
+        igw  = false
+        ngw  = false
+      }
+      db-subnet2 = {
+        cidr = "10.1.0.96/27"
+        az   = "us-east-1b"
+        igw  = false
+        ngw  = false
+      }
+      app-subnet1 = {
+        cidr = "10.1.0.0/27"
+        az   = "us-east-1a"
+        igw  = false
+        ngw  = true
+      }
+      app-subnet2 = {
+        cidr = "10.1.0.32/27"
+        az   = "us-east-1b"
+        igw  = false
+        ngw  = true
       }
     }
   }
