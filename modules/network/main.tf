@@ -53,7 +53,7 @@ resource "aws_eip" "ngw" {
 }
 
 resource "aws_nat_gateway" "ngw" {
-  for_each      = local.subnets_with_igw
+  for_each      = local.subnets_with_ngw
   allocation_id = aws_eip.ngw[each.key].id
   subnet_id     = each.key
 }
