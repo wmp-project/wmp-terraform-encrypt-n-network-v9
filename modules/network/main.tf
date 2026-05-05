@@ -40,7 +40,12 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-
+resource "aws_route" "igw-route" {
+  count = length(local.subnets_with_igw)
+  route_table_id            =
+  destination_cidr_block    = "10.0.1.0/22"
+  vpc_peering_connection_id = "pcx-45ff3dc1"
+}
 
 #
 # resource "aws_vpc_peering_connection" "main" {
