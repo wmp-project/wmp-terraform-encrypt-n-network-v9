@@ -50,7 +50,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 output "igw_subnets" {
-  value = module.subnets.subnets_from_subnet_module
+  value = module.subnets
 }
 
 #
