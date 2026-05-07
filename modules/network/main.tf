@@ -49,9 +49,9 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-output "igw_subnets" {
-  value = module.subnets
-}
+# output "igw_subnets" {
+#   value = module.subnets
+# }
 
 output "test" {
   value = lookup(module.subnets, "app")
