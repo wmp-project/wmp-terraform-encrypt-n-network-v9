@@ -18,3 +18,10 @@ resource "aws_route_table" "main" {
     Name = each.key
   }
 }
+
+resource "aws_route_table_association" "main" {
+  for_each       = var.subnets
+  subnet_id      = aws_subnet.main[each.key].id
+  route_table_id = aws_route_table.main[each.key].id
+}
+
