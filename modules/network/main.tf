@@ -53,13 +53,16 @@ output "igw_subnets" {
   value = module.subnets
 }
 
-
-resource "aws_route" "igw-route" {
-  count                  = length(concat(values(module.subnets.igw_route_tables)))
-  route_table_id         = concat(values(module.subnets.igw_route_tables))[count.index]
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.igw.id
+output "test" {
+  value = lookup(module.subnets, "app")
 }
+
+# resource "aws_route" "igw-route" {
+#   count                  = length(concat(values(module.subnets.igw_route_tables)))
+#   route_table_id         = concat(values(module.subnets.igw_route_tables))[count.index]
+#   destination_cidr_block = "0.0.0.0/0"
+#   gateway_id             = aws_internet_gateway.igw.id
+# }
 
 # resource "aws_eip" "ngw" {
 #   for_each = local.subnets_with_ngw
