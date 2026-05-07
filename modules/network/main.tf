@@ -85,3 +85,21 @@ resource "aws_route_table_association" "db" {
 }
 
 
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = var.env
+  }
+}
+
+resource "aws_route" "public" {
+  count = length(var.subnets["public_subnets"])
+  route_table_id         = aws_route_table.public[count.index].id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
+
+
+
