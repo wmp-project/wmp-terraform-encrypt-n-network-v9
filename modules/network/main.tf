@@ -55,7 +55,7 @@ resource "aws_internet_gateway" "igw" {
 
 output "test" {
   #value = lookup(module.subnets.igw_subnets, "app", {  })
-  value = [ for i,j in module.subnets.igw_subnets: i ]
+  value = [ for i,j in module.subnets: i.igw_subnets ]
 }
 
 # resource "aws_route" "igw-route" {
