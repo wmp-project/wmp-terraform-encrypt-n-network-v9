@@ -6,40 +6,38 @@ resource "aws_vpc" "main" {
   }
 }
 
-module "subnets" {
-  source = "./subnets"
-  vpc_id = aws_vpc.main.id
+# module "subnets" {
+#   source = "./subnets"
+#   vpc_id = aws_vpc.main.id
+#   subnets = var.subnets
+# }
 
-  for_each = var.subnets
-  subnets = each.value
+resource "aws_subnet" "main" {
+  for_each          = var.subnets
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value["cidr"]
+  availability_zone = each.value["az"]
+
+  tags = {
+    Name = each.key
+  }
 }
 
-# resource "aws_subnet" "main" {
-#   for_each          = var.subnets
-#   vpc_id            = aws_vpc.main.id
-#   cidr_block        = each.value["cidr"]
-#   availability_zone = each.value["az"]
-#
-#   tags = {
-#     Name = each.key
-#   }
-# }
 
-#
-# resource "aws_route_table" "main" {
-#   for_each = var.subnets
-#   vpc_id   = aws_vpc.main.id
-#
-#   tags = {
-#     Name = each.key
-#   }
-# }
-#
-# resource "aws_route_table_association" "main" {
-#   for_each       = var.subnets
-#   subnet_id      = aws_subnet.main[each.key].id
-#   route_table_id = aws_route_table.main[each.key].id
-# }
+resource "aws_route_table" "main" {
+  for_each = var.subnets
+  vpc_id   = aws_vpc.main.id
+
+  tags = {
+    Name = each.key
+  }
+}
+
+resource "aws_route_table_association" "main" {
+  for_each       = var.subnets
+  subnet_id      = aws_subnet.main[each.key].id
+  route_table_id = aws_route_table.main[each.key].id
+}
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -58,12 +56,12 @@ resource "aws_internet_gateway" "igw" {
 #   value = [ for i,j in module.subnets: join(",", i.igw_subnets) ]
 # }
 
-# resource "aws_route" "igw-route" {
-#   count                  = length(concat(values(module.subnets.igw_route_tables)))
-#   route_table_id         = concat(values(module.subnets.igw_route_tables))[count.index]
-#   destination_cidr_block = "0.0.0.0/0"
-#   gateway_id             = aws_internet_gateway.igw.id
-# }
+resource "aws_route" "igw-route" {
+  for_each               = { for i,j in var.subnets: i => aws_subnet.main[i].id if var.subnets[i].id }
+  route_table_id         = aws_route_table.main[each.key].id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
 
 # resource "aws_eip" "ngw" {
 #   for_each = local.subnets_with_ngw
