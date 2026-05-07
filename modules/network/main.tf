@@ -94,12 +94,27 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_route" "public" {
+resource "aws_route" "igw" {
   count = length(var.subnets["public_subnets"])
   route_table_id         = aws_route_table.public[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
 
+resource "aws_eip" "ngw" {
+  count = length(var.subnets["public_subnets"])
+  domain   = "vpc"
+}
 
+resource "aws_nat_gateway" "ngw" {
+  count = length(var.subnets["public_subnets"])
+  allocation_id = aws_eip.ngw[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+}
 
+resource "aws_route" "ngw" {
+  count = length(var.subnets["app_subnets"])
+  route_table_id         = aws_route_table.app[count.index].id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_nat_gateway.ngw[count.index].id
+}
