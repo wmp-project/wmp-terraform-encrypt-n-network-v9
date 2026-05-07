@@ -55,8 +55,8 @@ output "igw_subnets" {
 
 
 resource "aws_route" "igw-route" {
-  count                  = length(module.subnets.igw_route_tables)
-  route_table_id         = module.subnets.igw_route_tables[count.index]
+  count                  = length(concat(values(module.subnets.igw_route_tables)))
+  route_table_id         = concat(values(module.subnets.igw_route_tables))[count.index]
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
