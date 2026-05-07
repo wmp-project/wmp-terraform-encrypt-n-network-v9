@@ -7,6 +7,6 @@ output "route_table_ids_from_subnet_module" {
 }
 
 output "igw_subnets" {
-  value = [ for i,j in aws_subnet.main: j.id if var.subnets[igw] ]
+  value = [ for i,j in var.subnets: aws_subnet.main[i].id if var.subnets[i][igw] ]
 }
 
