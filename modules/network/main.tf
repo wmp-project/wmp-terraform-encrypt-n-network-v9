@@ -118,3 +118,29 @@ resource "aws_route" "ngw" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_nat_gateway.ngw[count.index].id
 }
+
+
+
+resource "aws_vpc_peering_connection" "main" {
+  peer_vpc_id = var.default_vpc_id
+  vpc_id      = aws_vpc.main.id
+  auto_accept = true
+
+  tags = {
+    Name = "default-to-${var.env}"
+  }
+}
+
+
+resource "aws_route" "default-rt-add-peering" {
+  route_table_id            = var.default_vpc_rt_id
+  destination_cidr_block    = var.vpc_cidr
+  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+}
+
+resource "aws_route" "here-vpc-rt-add-peering" {
+  count                     = length(concat(aws_route_table.public, aws_route_table.app, aws_route_table.db))
+  route_table_id            = concat(aws_route_table.public, aws_route_table.app, aws_route_table.db)[count.index]
+  destination_cidr_block    = var.default_vpc_cidr
+  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+}
