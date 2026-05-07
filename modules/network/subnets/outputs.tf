@@ -7,6 +7,6 @@
 # }
 
 output "igw_subnets" {
-  value = [ for i,j in var.subnets: aws_subnet.main[i].id ]
+  value = [ for i,j in var.subnets: aws_subnet.main[i].id if var.subnets[i].igw ]
 }
 
