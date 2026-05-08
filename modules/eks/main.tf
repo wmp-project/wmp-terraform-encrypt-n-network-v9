@@ -88,30 +88,30 @@ resource "aws_launch_template" "main" {
   }
 }
 
-# resource "aws_eks_node_group" "main" {
-#   cluster_name    = aws_eks_cluster.main.name
-#   node_group_name = "${var.env}-ng"
-#   node_role_arn   = aws_iam_role.node.arn
-#   subnet_ids      = var.subnets
-#   instance_types  = ["t3.xlarge"]
-#   capacity_type   = "SPOT"
-#   launch_template {
-#     version = "$Latest"
-#     name    = "${aws_eks_cluster.main.name}-lt"
-#   }
-#
-#
-#   scaling_config {
-#     desired_size = 1
-#     max_size     = 2
-#     min_size     = 1
-#   }
-#
-#   depends_on = [
-#     aws_iam_role_policy_attachment.main-AmazonEKSWorkerNodePolicy,
-#     aws_iam_role_policy_attachment.main-AmazonEKS_CNI_Policy,
-#     aws_iam_role_policy_attachment.main-AmazonEC2ContainerRegistryReadOnly,
-#     aws_launch_template.main
-#   ]
-# }
+resource "aws_eks_node_group" "main" {
+  cluster_name    = aws_eks_cluster.main.name
+  node_group_name = "${var.env}-ng"
+  node_role_arn   = aws_iam_role.node.arn
+  subnet_ids      = var.subnets
+  instance_types  = ["t3.xlarge"]
+  capacity_type   = "SPOT"
+  launch_template {
+    version = "$Latest"
+    name    = "${aws_eks_cluster.main.name}-lt"
+  }
+
+
+  scaling_config {
+    desired_size = 2
+    max_size     = 3
+    min_size     = 2
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.main-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.main-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.main-AmazonEC2ContainerRegistryReadOnly,
+    aws_launch_template.main
+  ]
+}
 
