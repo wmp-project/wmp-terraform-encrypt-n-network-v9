@@ -73,3 +73,11 @@ resource "helm_release" "traefik" {
 }
 
 
+resource "helm_release" "external-dns" {
+  depends_on       = [null_resource.kube-config]
+  name             = "external-dns"
+  repository       = "https://kubernetes-sigs.github.io/external-dns"
+  chart            = "external-dns"
+  namespace        = "tools"
+  create_namespace = true
+}
