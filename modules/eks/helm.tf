@@ -48,7 +48,11 @@ resource "helm_release" "argocd" {
     {
       name  = "configs.params.server\\.insecure"
       value = "true"
-    }
+    },
+    {
+      name  = "global.domain"
+      value = "argocd-${var.env}.raghudevopsb88.online"
+    },
   ]
 }
 
