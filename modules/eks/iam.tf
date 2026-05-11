@@ -1,15 +1,15 @@
 resource "aws_iam_role" "external-dns-role" {
-  name               = "external-dns-role"
+  name = "external-dns-role"
 
   assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "pods.eks.amazonaws.com"
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "pods.eks.amazonaws.com"
         },
-        "Action": [
+        "Action" : [
           "sts:AssumeRole",
           "sts:TagSession"
         ]
@@ -21,25 +21,25 @@ resource "aws_iam_role" "external-dns-role" {
     name = "external-dns-policy"
 
     policy = jsonencode({
-      "Version": "2012-10-17",
-      "Statement": [
+      "Version" : "2012-10-17",
+      "Statement" : [
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "route53:ChangeResourceRecordSets",
             "route53:ListResourceRecordSets",
             "route53:ListTagsForResources"
           ],
-          "Resource": [
+          "Resource" : [
             "arn:aws:route53:::hostedzone/*"
           ]
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "route53:ListHostedZones"
           ],
-          "Resource": [
+          "Resource" : [
             "*"
           ]
         }
@@ -47,3 +47,11 @@ resource "aws_iam_role" "external-dns-role" {
     })
   }
 }
+
+resource "aws_eks_pod_identity_association" "external-dns-pod-association" {
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "default"
+  service_account = "external-dns"
+  role_arn        = aws_iam_role.external-dns-role.arn
+}
+
