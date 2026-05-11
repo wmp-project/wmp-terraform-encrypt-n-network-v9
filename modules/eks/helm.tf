@@ -76,7 +76,7 @@ resource "helm_release" "file-beat" {
 
 
 resource "helm_release" "external-dns" {
-  depends_on = [null_resource.kube-config, helm_release.traefik]
+  depends_on       = [null_resource.kube-config, helm_release.traefik]
   name             = "external-dns"
   repository       = "https://kubernetes-sigs.github.io/external-dns"
   chart            = "external-dns"

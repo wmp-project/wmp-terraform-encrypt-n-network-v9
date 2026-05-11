@@ -15,6 +15,11 @@ resource "aws_eks_cluster" "main" {
   ]
 }
 
+resource "aws_eks_addon" "eks-pod-identity" {
+  cluster_name = aws_eks_cluster.main.name
+  addon_name   = "eks-pod-identity-agent"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "add-https-to-bastion" {
   security_group_id = aws_eks_cluster.main.vpc_config[0].cluster_security_group_id
   cidr_ipv4         = "172.31.0.0/16"
