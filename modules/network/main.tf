@@ -116,7 +116,7 @@ resource "aws_route" "ngw" {
   count                  = length(var.subnets["app_subnets"])
   route_table_id         = aws_route_table.app[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_nat_gateway.ngw[count.index].id
+  nat_gateway_id         = aws_nat_gateway.ngw[count.index].id
 }
 
 
