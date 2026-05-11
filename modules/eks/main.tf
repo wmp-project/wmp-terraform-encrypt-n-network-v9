@@ -118,5 +118,11 @@ resource "aws_eks_node_group" "main" {
     aws_iam_role_policy_attachment.main-AmazonEC2ContainerRegistryReadOnly,
     aws_launch_template.main
   ]
+
+  lifecycle {
+    ignore_changes = [
+      launch_template
+    ]
+  }
 }
 
