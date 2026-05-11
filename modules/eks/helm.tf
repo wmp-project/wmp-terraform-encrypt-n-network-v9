@@ -28,21 +28,29 @@ resource "helm_release" "traefik" {
 
 }
 
-# resource "helm_release" "argocd" {
-#
-#   depends_on = [null_resource.kube-config, helm_release.traefik]
-#
-#   name       = "argocd"
-#   repository = "https://argoproj.github.io/argo-helm"
-#   chart      = "argo-cd"
-#
-#   set = [
-#     {
-#       name  = "server.service.type"
-#       value = "LoadBalancer"
-#     }
-#   ]
-# }
+resource "helm_release" "argocd" {
+
+  depends_on = [null_resource.kube-config, helm_release.traefik]
+
+  name       = "argocd"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+
+  set = [
+    {
+      name  = "server.ingress.enabled"
+      value = "true"
+    },
+    {
+      name  = "server.ingress.ingressClassName"
+      value = "traefik"
+    },
+    {
+      name  = "configs.params.server\\.insecure"
+      value = "true"
+    }
+  ]
+}
 
 resource "helm_release" "prometheus-stack" {
 
