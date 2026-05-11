@@ -38,7 +38,24 @@ resource "helm_release" "traefik" {
     {
       name  = "ports.web.http.redirections.entryPoint.permanent"
       value = "true"
-    }
+    },
+    # ACM certificate ARN
+    {
+      name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"
+      value = "arn:aws:acm:us-east-1:739561048503:certificate/357141e3-f378-4020-a8f5-b9d69a94316f"
+    },
+
+    # Enable TLS on 443
+    {
+      name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-ports"
+      value = "443"
+    },
+
+    # Forward decrypted traffic to Traefik over HTTP
+    {
+      name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-backend-protocol"
+      value = "http"
+    },
   ]
 
 }
