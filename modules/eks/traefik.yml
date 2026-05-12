@@ -1,10 +1,10 @@
-ports:
-  web:
-    http:
-      redirectTo:
-        port: websecure
-        scheme: https
-        permanent: true
+# ports:
+#   web:
+#     http:
+#       redirectTo:
+#         port: websecure
+#         scheme: https
+#         permanent: true
 
 service:
   annotations:
