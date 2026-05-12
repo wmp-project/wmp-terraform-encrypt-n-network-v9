@@ -13,3 +13,12 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
 
 
+logs:
+  access:
+    enabled: true
+
+additionalArguments:
+  - "--api.insecure=true"
+  - "--accesslog=true"
+  - "--log.level=DEBUG"
+
