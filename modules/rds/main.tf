@@ -22,7 +22,8 @@ resource "aws_db_subnet_group" "main" {
 
 resource "aws_security_group" "main" {
 
-  name = "wmp-rds-${var.env}"
+  name   = "wmp-rds-${var.env}"
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 5432
