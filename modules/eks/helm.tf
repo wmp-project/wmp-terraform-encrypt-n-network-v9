@@ -19,14 +19,13 @@ provider "helm" {
 }
 
 resource "helm_release" "traefik" {
-
   depends_on = [null_resource.kube-config]
-
   name       = "traefik"
   repository = "https://traefik.github.io/charts"
   chart      = "traefik"
   values     = [file("${path.module}/traefik.yml")]
-
+  timeout    = 900  # The timeout (in seconds) for Helm to wait for any individual Kubernetes operation.
+  wait       = true
 }
 
 resource "helm_release" "argocd" {
