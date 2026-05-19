@@ -13,7 +13,9 @@ resource "aws_subnet" "public" {
   availability_zone = var.az[count.index]
 
   tags = {
-    Name = "public-subnet-${count.index + 1}"
+    Name                                    = "public-subnet-${count.index + 1}"
+    "kubernetes.io/role/elb"                = "1"
+    "kubernetes.io/cluster/${var.env}"      = "shared"
   }
 }
 
@@ -24,7 +26,9 @@ resource "aws_subnet" "app" {
   availability_zone = var.az[count.index]
 
   tags = {
-    Name = "app-subnet-${count.index + 1}"
+    Name                                    = "app-subnet-${count.index + 1}"
+    "kubernetes.io/role/internal-elb"       = "1"
+    "kubernetes.io/cluster/${var.env}"      = "shared"
   }
 }
 
