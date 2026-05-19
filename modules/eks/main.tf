@@ -98,8 +98,8 @@ resource "aws_eks_node_group" "main" {
   node_group_name = "${var.env}-ng"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = var.subnets
-  instance_types  = ["t3.xlarge"]
-  capacity_type   = "SPOT"
+  instance_types  = ["t3.small"]
+  capacity_type   = "ON_DEMAND"
   launch_template {
     version = "$Latest"
     name    = "${aws_eks_cluster.main.name}-lt"
@@ -107,9 +107,9 @@ resource "aws_eks_node_group" "main" {
 
 
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 2
+    desired_size = 5
+    max_size     = 10
+    min_size     = 5
   }
 
   depends_on = [

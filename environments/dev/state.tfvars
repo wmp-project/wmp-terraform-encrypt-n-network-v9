@@ -1,3 +1,3 @@
-bucket = "terraform-state-d88"
-key    = "wmp-v8/dev/terraform.tfstate"
+bucket = "terraform-state-mkreddy"
+key    = "wmp-v9/dev/terraform.tfstate"
 region = "us-east-1"

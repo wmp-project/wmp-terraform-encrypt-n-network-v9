@@ -1,8 +1,8 @@
-dns_domain = "raghudevopsb88.online."
+dns_domain = "devmonkey.online."
 env        = "dev"
 vpc_id     = "vpc-00c17ee82b9c30e4a"
 subnets    = ["subnet-05fc554f21ead9d55", "subnet-0e99e91ba5863b57b"]
-kms_key_id = "arn:aws:kms:us-east-1:739561048503:key/6a83bdae-47d1-4774-9fae-dafe28349ade"
+  kms_key_id = "arn:aws:kms:us-east-1:424808095083:key/0439b8e4-6ad4-4c1e-88fd-670c29a7d3be"
 
 databases = {
   postgresql = {
@@ -131,8 +131,8 @@ network = {
   }
 }
 
-default_vpc_id    = "vpc-00c17ee82b9c30e4a"
-default_vpc_rt_id = "rtb-0448dc4ab58628ec1"
+default_vpc_id    = "vpc-06dd3e77917ad2c47"
+default_vpc_rt_id = "rtb-09b141c006edafab0"
 default_vpc_cidr  = "172.31.0.0/16"
 
 cluster_sg_ingress_cidr = ["172.31.0.0/16", "10.1.0.0/24"]
