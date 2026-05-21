@@ -55,7 +55,7 @@ resource "helm_release" "argocd" {
     },
     {
       name  = "global.domain"
-      value = "argocd-${var.env}.raghudevopsb88.online"
+      value = "argocd-${var.env}.devmonkey.online"
     },
   ]
 }
@@ -80,7 +80,7 @@ resource "helm_release" "prometheus-stack" {
   set_list = [
     {
       name  = "prometheus.ingress.hosts"
-      value = ["prometheus-${var.env}.raghudevopsb88.online"]
+      value = ["prometheus-${var.env}.devmonkey.online"]
     }
   ]
 }

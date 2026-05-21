@@ -2,7 +2,7 @@ dns_domain = "devmonkey.online."
 env        = "dev"
 vpc_id     = "vpc-00c17ee82b9c30e4a"
 subnets    = ["subnet-05fc554f21ead9d55", "subnet-0e99e91ba5863b57b"]
-kms_key_id = "arn:aws:kms:us-east-1:424808095083:key/6e318160-0c19-4e3c-b7b3-896710b524db"
+kms_key_id = "arn:aws:kms:us-east-1:349558942960:key/a855cb70-e64f-42c7-8050-9c46847b93ab"
 
 databases = {
   postgresql = {
@@ -131,8 +131,8 @@ network = {
   }
 }
 
-default_vpc_id    = "vpc-0f1c6be04e9ff300c"
-default_vpc_rt_id = "rtb-05b22eac334a7d035"
+default_vpc_id    = "vpc-0cdda40e033a5a0dc"
+default_vpc_rt_id = "rtb-0a963b85ccba294d7"
 default_vpc_cidr  = "172.31.0.0/16"
 
 cluster_sg_ingress_cidr = ["172.31.0.0/16", "10.1.0.0/24"]

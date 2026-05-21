@@ -2,7 +2,7 @@ service:
   type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:424808095083:certificate/456c5d6f-6ebd-40be-a334-826274e94afb"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:349558942960:certificate/dd8f9e63-0d2c-4089-90f3-c49ecd77dbd7"
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
 
