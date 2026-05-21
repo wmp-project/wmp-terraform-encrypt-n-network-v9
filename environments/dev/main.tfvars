@@ -2,7 +2,7 @@ dns_domain = "devmonkey.online."
 env        = "dev"
 vpc_id     = "vpc-00c17ee82b9c30e4a"
 subnets    = ["subnet-05fc554f21ead9d55", "subnet-0e99e91ba5863b57b"]
-kms_key_id = "arn:aws:kms:us-east-1:349558942960:key/79e0f719-a1c5-4586-9cc1-8d0b67a9212b"
+kms_key_id = "arn:aws:kms:us-east-1:349558942960:key/d0926200-5985-45d8-8fc4-bc28a4a6d769"
 
 databases = {
   postgresql = {
