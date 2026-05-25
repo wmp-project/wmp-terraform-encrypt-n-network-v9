@@ -1,4 +1,4 @@
-dns_domain = "devmonkey.online."
+dns_domain = "devmonkey.online"
 env        = "dev"
 vpc_id     = "vpc-00c17ee82b9c30e4a"
 subnets    = ["subnet-05fc554f21ead9d55", "subnet-0e99e91ba5863b57b"]
